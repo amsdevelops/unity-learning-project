@@ -5,11 +5,7 @@ using UnityEngine;
 
 public class HomeworkScript : MonoBehaviour
 {
-    private const int TIME_MULTIPLYER = 20;
-    [SerializeField] private bool isEnabled;
-    [SerializeField] private RotationAxis rotationAxis;
     [SerializeField] public int _seed;
-    private GameObject _cube;
     
     public struct HomeworkValues
     {
@@ -25,26 +21,9 @@ public class HomeworkScript : MonoBehaviour
         public int Seed;
     }
 
-    [Flags]
-    public enum RotationAxis
-    {
-        X = 0,
-        Y = 1,
-        Z = 2
-    }
-
     void Start()
     {
-        _cube = GameObject.Find("Cube");
         RunHomeworkTask();
-    }
-
-    void Update()
-    {
-        if (isEnabled)
-        {
-            RunRotation();
-        }
     }
 
     private void RunHomeworkTask()
@@ -75,38 +54,5 @@ public class HomeworkScript : MonoBehaviour
     private int square(ref int value)
     {
         return value *= value;
-    }
-
-    private void RunRotation()
-    {
-        switch (rotationAxis)
-        {
-            case RotationAxis.X:
-            {
-                _cube.transform.Rotate(CalculateRotationSpeed(), 0, 0);
-                break;
-            }
-            case RotationAxis.Y:
-            {
-                _cube.transform.Rotate(0, CalculateRotationSpeed(), 0);
-                break;
-            }
-            case RotationAxis.Z:
-            {
-                _cube.transform.Rotate(0, 0, CalculateRotationSpeed());
-                break;
-            }
-        }
-    }
-
-    private float CalculateRotationSpeed()
-    {
-        return TIME_MULTIPLYER * Time.deltaTime;
-    } 
-    
-    [ContextMenu("TestFunc")]
-    void TestFunc()
-    {
-        Debug.Log("isEnabled: " + isEnabled);
     }
 }
